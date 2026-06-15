@@ -1,23 +1,18 @@
 // Restaurant lists, themes, and carousel tuning — ported from iOS Config.swift.
 
 export const basicRestaurants = [
-  "Summer Salt",
-  "Bombay Sandwich",
-  "Glur",
-  "Daily Provisions",
-  "Oramen",
-  "Thai Vila",
-  "Taïm",
-  "Little Beet",
-  "Inday",
-  "Tappo",
-  "Zero Otto Nove",
-  "Milu",
-  "Sugarfish",
-  "Sushi Burrito Yummy Stick",
-  "Naya",
-  "Hole In The Wall",
-  "Burger & Lobster",
+  "Revelie",
+  "ALIDORO",
+  "Pi Bakerie",
+  "Lucia Alimentari",
+  "Le Botaniste",
+  "Dig Inn",
+  "Fanelli's Cafe",
+  "Olive's",
+  "Court Street Grocers",
+  "Hamburger America",
+  "Dante NYC",
+  "THISBOWL"
 ];
 
 export const niceRestaurants = [
