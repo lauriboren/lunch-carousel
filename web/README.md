@@ -23,11 +23,14 @@ npm run preview  # serve the production build
 
 ## Features
 
-- 3D carousel: drag to spin, flick to fling with deceleration, snaps to the nearest card
+- Full-window 3D carousel, vertically centered: drag to spin, flick to fling with
+  deceleration, snaps to the nearest card
+- Each card shows the restaurant **name, address, and walking time** ("N minute walk")
 - Arbitrary-length restaurant lists mapped onto 8 physical cards (neighbor-inference algorithm)
-- BASIC LUNCH / NICE LUNCH™ toggle with an animated underline
-- Tap the title to cycle 4 themes (white / black / beige / green) with a cross-dissolve
 - Responsive: iPad-sized geometry on wide screens, phone-sized below 768px
+
+Restaurants live in [`src/config.ts`](src/config.ts) as `{ name, address, walkMinutes }`.
+Address/walk lines auto-hide for any entry left without that data.
 
 ## Scope notes
 
@@ -36,11 +39,11 @@ This is the core MVP. Intentionally **not** ported from the iOS app:
 - **Audio** — the per-card click sound.
 - **Easter eggs** — the 🦞 lobster animation and the US-holiday "Burger & Lobster
   day" detection. These were already dormant (disabled) in the iOS app.
+- **Lunch-type toggle, theme switching, and the heading** — present early on, then
+  removed in favor of a single clean carousel.
 
-The title uses a **system serif stack** instead of the iOS app's PPEditorialNew,
-which is a commercial font. Cards use Inter (open-licensed), bundled in
-`public/fonts/`. `Carousel.spinTo()` is kept as public API in case the lobster
-easter egg is added later.
+Cards use Inter (open-licensed), bundled in `public/fonts/`. `Carousel.spinTo()` is
+kept as public API in case the lobster easter egg is added later.
 
 ## Mapping from iOS
 
