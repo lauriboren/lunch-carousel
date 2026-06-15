@@ -102,14 +102,14 @@ const configIpad: CarouselConfig = {
 };
 
 const configPhone: CarouselConfig = {
-  cardWidth: 168,
+  cardWidth: 320, // height 427 via CARD_ASPECT (3:4)
   cardCornerRadius: 12,
-  cardPadding: 24,
-  depthScalar: 700,
-  cardSpread: 240,
+  cardPadding: 40,
+  depthScalar: 1333, // spread/depth scaled up ~1.9x from the old 168px card
+  cardSpread: 457,
   decelerationScalar: 0.96,
   snapDuration: 0.3,
-  cardFontSizeToCardWidthRatio: 36 / 307, // name = 36px on the 307px card, scaled by width
+  cardFontSizeToCardWidthRatio: 24 / 320, // name = 24px on the 320px phone card
 };
 
 /** Pick a carousel config based on viewport width, mirroring the iPad/iPhone split. */
