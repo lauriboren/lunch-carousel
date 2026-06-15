@@ -21,6 +21,7 @@ export const basicRestaurants: Restaurant[] = [
   { name: "Hamburger America", address: "155 West Houston Street", walkMinutes: 8 },
   { name: "Dante NYC", address: "79-81 MacDougal Street", walkMinutes: 10 },
   { name: "THISBOWL", address: "65 Bleecker Street", walkMinutes: 9 },
+  { name: "5ive Spice", address: "227 Mulberry Street", walkMinutes: 7 },
 ];
 
 export interface Theme {
@@ -68,9 +69,13 @@ export const themes: Theme[] = [
   },
 ];
 
+/** Card height / width. Fixed at 3:4 (360x480) so proportions match at every size. */
+export const CARD_ASPECT = 480 / 360;
+
 export interface CarouselConfig {
   cardWidth: number;
-  cardHeight: number;
+  // Card height is derived from cardWidth via CARD_ASPECT (a fixed 3:4 / 360x480
+  // ratio) so proportions stay identical across screen sizes.
   cardCornerRadius: number;
   cardPadding: number;
   /** Larger = cards further from the viewer (maps to CSS `perspective`). */
@@ -87,26 +92,24 @@ export interface CarouselConfig {
 
 const configIpad: CarouselConfig = {
   cardWidth: 307,
-  cardHeight: 412,
   cardCornerRadius: 12,
   cardPadding: 40,
   depthScalar: 2400,
   cardSpread: 445,
   decelerationScalar: 0.98,
   snapDuration: 0.4,
-  cardFontSizeToCardWidthRatio: 0.08,
+  cardFontSizeToCardWidthRatio: 36 / 307, // name = 36px on the 307px card, scaled by width
 };
 
 const configPhone: CarouselConfig = {
   cardWidth: 168,
-  cardHeight: 288,
   cardCornerRadius: 12,
   cardPadding: 24,
   depthScalar: 700,
   cardSpread: 240,
   decelerationScalar: 0.96,
   snapDuration: 0.3,
-  cardFontSizeToCardWidthRatio: 0.08,
+  cardFontSizeToCardWidthRatio: 36 / 307, // name = 36px on the 307px card, scaled by width
 };
 
 /** Pick a carousel config based on viewport width, mirroring the iPad/iPhone split. */

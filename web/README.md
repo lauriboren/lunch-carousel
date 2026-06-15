@@ -42,8 +42,9 @@ This is the core MVP. Intentionally **not** ported from the iOS app:
 - **Lunch-type toggle, theme switching, and the heading** — present early on, then
   removed in favor of a single clean carousel.
 
-Cards use Inter (open-licensed), bundled in `public/fonts/`. `Carousel.spinTo()` is
-kept as public API in case the lobster easter egg is added later.
+Cards use **Inter** (weights 400 + 500), loaded from Google Fonts via a `<link>` in
+`index.html`. `Carousel.spinTo()` is kept as public API in case the lobster easter
+egg is added later.
 
 ## Mapping from iOS
 

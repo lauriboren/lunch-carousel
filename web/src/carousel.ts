@@ -12,7 +12,7 @@
 //   isDoubleSided = false          -> `backface-visibility: hidden`
 //   touchesBegan/Moved/Ended       -> Pointer Events
 
-import { CarouselConfig, Restaurant } from "./config";
+import { CARD_ASPECT, CarouselConfig, Restaurant } from "./config";
 import { easeInOutSine, easeOutCirc, normalizeAngle } from "./math";
 
 const NUM_CARDS = 8;
@@ -118,11 +118,12 @@ export class Carousel {
     host.style.perspective = `${config.depthScalar}px`;
 
     const fontSize = config.cardWidth * config.cardFontSizeToCardWidthRatio;
+    const cardHeight = config.cardWidth * CARD_ASPECT; // 3:4, consistent at every size
     for (const card of this.cards) {
       card.style.width = `${config.cardWidth}px`;
-      card.style.height = `${config.cardHeight}px`;
+      card.style.height = `${cardHeight}px`;
       card.style.marginLeft = `${-config.cardWidth / 2}px`;
-      card.style.marginTop = `${-config.cardHeight / 2}px`;
+      card.style.marginTop = `${-cardHeight / 2}px`;
       card.style.borderRadius = `${config.cardCornerRadius}px`;
       card.style.padding = `${config.cardPadding}px`;
       // Base size for the card; name/address/walk scale from it via `em`.
