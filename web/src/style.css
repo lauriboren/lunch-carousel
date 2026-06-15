@@ -54,10 +54,12 @@ body {
   left: 0;
   right: 0;
   margin: 0;
+  padding: 0 clamp(20px, 6vw, 48px);
   text-align: center;
   font-family: var(--title-font);
   font-weight: 400;
   font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.25;
   color: var(--title-color);
   cursor: pointer;
   transition: color 2s ease;
@@ -70,6 +72,18 @@ body {
   bottom: 0;
   top: 150px;
   overflow: hidden;
+}
+
+/* On mobile the long heading wraps to 2–3 lines — give it more breathing
+   room from the top edge and push the carousel down so they don't crowd. */
+@media (max-width: 767px) {
+  #title {
+    top: 32px;
+  }
+
+  #carousel {
+    top: 210px;
+  }
 }
 
 .carousel-stage {
