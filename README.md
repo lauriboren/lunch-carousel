@@ -24,8 +24,8 @@ site deploys automatically to GitHub Pages on every push to `main` that touches
 
 ## iOS app (original)
 
-The original **Swift / UIKit** implementation, written by Timo. Lives in
-[`carousel-3d/`](carousel-3d/).
+The original **Swift / UIKit** implementation, written by
+[Timo](https://github.com/timojaask). Lives in [`carousel-3d/`](carousel-3d/).
 
 Hacked together in a hurry -- don't judge!
 
