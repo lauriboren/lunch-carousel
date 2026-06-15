@@ -12,7 +12,7 @@
 //   isDoubleSided = false          -> `backface-visibility: hidden`
 //   touchesBegan/Moved/Ended       -> Pointer Events
 
-import { CarouselConfig } from "./config";
+import { CarouselConfig, Restaurant } from "./config";
 import { easeInOutSine, easeOutCirc, normalizeAngle } from "./math";
 
 const NUM_CARDS = 8;
@@ -33,9 +33,11 @@ const now = () => performance.now() / 1000; // seconds, matching CACurrentMediaT
 export class Carousel {
   private stage: HTMLElement;
   private cards: HTMLElement[] = [];
-  private textEls: HTMLElement[] = [];
+  private nameEls: HTMLElement[] = [];
+  private addressEls: HTMLElement[] = [];
+  private walkEls: HTMLElement[] = [];
 
-  private restaurants: string[];
+  private restaurants: Restaurant[];
   private config: CarouselConfig;
 
   private currentAngle = 0;
@@ -64,9 +66,9 @@ export class Carousel {
   private visibleCardToRestaurant = new Map<number, number>();
 
   /** Fired when the wheel settles on a restaurant. */
-  onChoose?: (restaurant: string) => void;
+  onChoose?: (restaurant: Restaurant) => void;
 
-  constructor(host: HTMLElement, config: CarouselConfig, restaurants: string[]) {
+  constructor(host: HTMLElement, config: CarouselConfig, restaurants: Restaurant[]) {
     this.config = config;
     this.restaurants = restaurants;
 
@@ -81,15 +83,22 @@ export class Carousel {
       const card = document.createElement("div");
       card.className = "card";
 
-      const text = document.createElement("div");
-      text.className = "card-text";
-      text.textContent = restaurants[i % restaurants.length];
-      card.appendChild(text);
+      const name = document.createElement("div");
+      name.className = "card-name";
+      const address = document.createElement("div");
+      address.className = "card-address";
+      const walk = document.createElement("div");
+      walk.className = "card-walk";
+      card.append(name, address, walk);
 
       this.stage.appendChild(card);
       this.cards.push(card);
-      this.textEls.push(text);
+      this.nameEls.push(name);
+      this.addressEls.push(address);
+      this.walkEls.push(walk);
       this.cardCenterAngles.push(SEGMENT * i);
+
+      this.renderCard(i, restaurants[i % restaurants.length]);
     }
 
     this.applyConfig(config, host);
@@ -115,16 +124,15 @@ export class Carousel {
       card.style.marginLeft = `${-config.cardWidth / 2}px`;
       card.style.marginTop = `${-config.cardHeight / 2}px`;
       card.style.borderRadius = `${config.cardCornerRadius}px`;
-    }
-    for (const text of this.textEls) {
-      text.style.fontSize = `${fontSize}px`;
-      text.style.padding = `${config.cardPadding}px`;
+      card.style.padding = `${config.cardPadding}px`;
+      // Base size for the card; name/address/walk scale from it via `em`.
+      card.style.fontSize = `${fontSize}px`;
     }
     this.prevDrawnAngle = -1; // force a redraw with the new geometry
     this.draw();
   }
 
-  setRestaurants(restaurants: string[]): void {
+  setRestaurants(restaurants: Restaurant[]): void {
     this.restaurants = restaurants;
     this.visibleCardToRestaurant.clear();
     this.prevDrawnAngle = -1;
@@ -202,15 +210,26 @@ export class Carousel {
 
     this.updateCardToRestaurantMap(visible, invisible);
     for (const [cardId, restaurantId] of this.visibleCardToRestaurant) {
-      this.textEls[cardId].textContent = this.restaurants[restaurantId];
+      this.renderCard(cardId, this.restaurants[restaurantId]);
     }
 
     this.prevDrawnAngle = this.currentAngle;
   }
 
+  /** Write a restaurant's name, address, and walk time into a card. */
+  private renderCard(cardIdx: number, restaurant: Restaurant): void {
+    this.nameEls[cardIdx].textContent = restaurant.name;
+    this.addressEls[cardIdx].textContent = restaurant.address;
+    this.walkEls[cardIdx].textContent =
+      restaurant.walkMinutes > 0 ? `(${restaurant.walkMinutes} minute walk)` : "";
+    // Hide the meta lines when their data is missing.
+    this.addressEls[cardIdx].style.display = restaurant.address ? "" : "none";
+    this.walkEls[cardIdx].style.display = restaurant.walkMinutes > 0 ? "" : "none";
+  }
+
   // ---- Restaurant <-> card mapping (ported verbatim) ---------------------
 
-  private restaurantForCard(cardIndex: number): string | null {
+  private restaurantForCard(cardIndex: number): Restaurant | null {
     const idx = this.visibleCardToRestaurant.get(cardIndex);
     return idx === undefined ? null : this.restaurants[idx];
   }
@@ -280,11 +299,11 @@ export class Carousel {
   }
 
   /** Animate to a specific restaurant (used by external triggers, e.g. easter eggs). */
-  spinTo(restaurant: string, duration: number): void {
+  spinTo(restaurantName: string, duration: number): void {
     const currentR = this.restaurantForCard(this.frontMostCardIndex());
     if (!currentR) return;
-    const from = this.restaurants.indexOf(currentR);
-    const to = this.restaurants.indexOf(restaurant);
+    const from = this.restaurants.findIndex((r) => r.name === currentR.name);
+    const to = this.restaurants.findIndex((r) => r.name === restaurantName);
     if (from < 0 || to < 0) return;
 
     const overshoot = SEGMENT / 4;

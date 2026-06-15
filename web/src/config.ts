@@ -1,30 +1,26 @@
 // Restaurant lists, themes, and carousel tuning — ported from iOS Config.swift.
 
-export const basicRestaurants = [
-  "Revelie",
-  "ALIDORO",
-  "Pi Bakerie",
-  "Lucia Alimentari",
-  "Le Botaniste",
-  "Dig Inn",
-  "Fanelli's Cafe",
-  "Olive's",
-  "Court Street Grocers",
-  "Hamburger America",
-  "Dante NYC",
-  "THISBOWL"
-];
+export interface Restaurant {
+  name: string;
+  /** Street address shown under the name. Empty string hides the line. */
+  address: string;
+  /** Walking time in minutes; rendered as "(N minute walk)". 0 hides the line. */
+  walkMinutes: number;
+}
 
-export const niceRestaurants = [
-  "Casa Mono",
-  "Pranakhon",
-  "Boucherie",
-  "Rezdôra",
-  "SUGARFISH",
-  "Gramercy Tavern",
-  "L’Express",
-  "ilili",
-  "Excellent Dumpling House",
+export const basicRestaurants: Restaurant[] = [
+  { name: "Revelie", address: "179 Prince Street", walkMinutes: 4 },
+  { name: "ALIDORO", address: "105 Sullivan Street", walkMinutes: 6 },
+  { name: "Pi Bakerie", address: "512 Broome Street", walkMinutes: 6 },
+  { name: "Lucia Alimentari", address: "301 West Broadway", walkMinutes: 9 },
+  { name: "Le Botaniste", address: "127 Grand Street", walkMinutes: 9 },
+  { name: "Dig Inn", address: "70 Prince Street", walkMinutes: 4 },
+  { name: "Fanelli Café", address: "94 Prince Street", walkMinutes: 2 },
+  { name: "Olive’s", address: "191 Prince Street", walkMinutes: 5 },
+  { name: "Court Street Grocers", address: "540 LaGuardia Place", walkMinutes: 9 },
+  { name: "Hamburger America", address: "155 West Houston Street", walkMinutes: 8 },
+  { name: "Dante NYC", address: "79-81 MacDougal Street", walkMinutes: 10 },
+  { name: "THISBOWL", address: "65 Bleecker Street", walkMinutes: 9 },
 ];
 
 export interface Theme {
