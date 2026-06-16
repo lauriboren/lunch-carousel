@@ -102,14 +102,17 @@ const configIpad: CarouselConfig = {
 };
 
 const configPhone: CarouselConfig = {
-  cardWidth: 320, // height 427 via CARD_ASPECT (3:4)
+  // The perspective magnifies the front card ~1.52x, so a 210px element renders
+  // ~320px wide on screen — i.e. apparent 320x427 with ~37px side margins on a
+  // 393px phone. (Sizing the element to a literal 320 overflows the screen.)
+  cardWidth: 210,
   cardCornerRadius: 12,
-  cardPadding: 40,
-  depthScalar: 1333, // spread/depth scaled up ~1.9x from the old 168px card
+  cardPadding: 26,
+  depthScalar: 1333,
   cardSpread: 457,
   decelerationScalar: 0.96,
   snapDuration: 0.3,
-  cardFontSizeToCardWidthRatio: 24 / 320, // name = 24px on the 320px phone card
+  cardFontSizeToCardWidthRatio: 0.075, // apparent name ≈ 24px (24/320)
 };
 
 /** Pick a carousel config based on viewport width, mirroring the iPad/iPhone split. */
