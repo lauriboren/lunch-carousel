@@ -11,7 +11,7 @@ export default defineConfig({
       includeAssets: ["apple-touch-icon.png"],
       manifest: {
         name: "NYC Lunch Carousel",
-        short_name: "Lunch",
+        short_name: "LUNCH!",
         description: "Spin to pick a lunch spot near the NYC office.",
         start_url: "./",
         scope: "./",
