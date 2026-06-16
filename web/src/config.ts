@@ -105,11 +105,11 @@ const configPhone: CarouselConfig = {
   // The perspective magnifies the front card ~1.52x, so a 210px element renders
   // ~320px wide on screen — i.e. apparent 320x427 with ~37px side margins on a
   // 393px phone. (Sizing the element to a literal 320 overflows the screen.)
-  cardWidth: 210,
+  cardWidth: 245,
   cardCornerRadius: 12,
   cardPadding: 26,
   depthScalar: 1333,
-  cardSpread: 457,
+  cardSpread: 314,
   decelerationScalar: 0.96,
   snapDuration: 0.3,
   cardFontSizeToCardWidthRatio: 0.075, // apparent name ≈ 24px (24/320)
