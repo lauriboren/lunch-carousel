@@ -20,6 +20,7 @@ body {
   height: 100%;
   overflow: hidden;
   overscroll-behavior: none;
+  touch-action: none; /* disable pinch/double-tap zoom and scroll gestures */
 }
 
 body {
