@@ -38,6 +38,25 @@ body {
   -webkit-user-select: none;
 }
 
+/* LUNCH! logo — centered in the gap above the cards. `top` and `width` are set
+   in app.ts from the card geometry so it stays halfway between the top and the
+   cards at any viewport size. */
+#logo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  z-index: 5;
+  line-height: 0;
+  pointer-events: none;
+}
+
+#logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 #carousel {
   position: absolute;
   inset: 0;

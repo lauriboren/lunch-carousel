@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["apple-touch-icon.png"],
+      includeAssets: ["apple-touch-icon.png", "logo.png"],
       manifest: {
         name: "NYC Lunch Carousel",
         short_name: "LUNCH!",
