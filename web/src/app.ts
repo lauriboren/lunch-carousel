@@ -1,7 +1,17 @@
 // Screen setup — a single full-window carousel, always the "basic lunch" list.
 
 import { Carousel } from "./carousel";
-import { basicRestaurants, CARD_ASPECT, CarouselConfig, pickConfig } from "./config";
+import { basicRestaurants, CARD_ASPECT, CarouselConfig, pickConfig, Restaurant } from "./config";
+
+/** Fisher-Yates shuffle, returning a new array. */
+function shuffle(items: Restaurant[]): Restaurant[] {
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export function initApp(): void {
   // iOS Safari ignores user-scalable=no, so block its pinch-zoom gesture events
@@ -22,7 +32,8 @@ export function initApp(): void {
 
   const carouselHost = document.getElementById("carousel") as HTMLElement;
   const logo = document.getElementById("logo") as HTMLElement;
-  const carousel = new Carousel(carouselHost, pickConfig(window.innerWidth), basicRestaurants);
+  // Shuffle so the order — and the starting card — are random on each load.
+  const carousel = new Carousel(carouselHost, pickConfig(window.innerWidth), shuffle(basicRestaurants));
 
   // Place the logo centered in the gap above the cards. The perspective
   // magnifies the front card, so derive its apparent size to find the card top,
